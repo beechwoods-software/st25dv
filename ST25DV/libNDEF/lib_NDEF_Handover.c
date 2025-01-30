@@ -392,6 +392,13 @@ uint16_t NDEF_CreateHandover(Ndef_Handover_t  *pHandover, sRecordInfo_t *pRecord
 }
 
 
+// NOTE: I don't know if this is the correct solution or not, but it can't be any
+// worse than potentially exposing the address of a local variable to other functions
+//
+/* Specific buffer to prepare the Alternative Carrier record */
+uint8_t NDEF_AlternativeCarrier_Buffer[NDEF_AC_BUFFER_SIZE];
+
+
 /**
   * @brief  This function adds an Alternative Carrier record to a Handover record using the data given in the AC structure.
   * @param  pAC             Pointer on input AC structure.
@@ -404,9 +411,8 @@ uint16_t NDEF_CreateHandover(Ndef_Handover_t  *pHandover, sRecordInfo_t *pRecord
   */
 uint16_t NDEF_AddAlternativeCarrier(Ndef_Handover_alternative_carrier_t *pAC, char *CarrierDataRef, char **AuxDataRefID, sRecordInfo_t *pRecord)
 {
-  /* Specific buffer to prepare the Alternative Carrier record */
-  uint8_t NDEF_AlternativeCarrier_Buffer[NDEF_AC_BUFFER_SIZE];
 
+  memset(&NDEF_AlternativeCarrier_Buffer[0], 0, NDEF_AC_BUFFER_SIZE);    
   /* check that there is enough space in the buffers */
   pAC->ac_record.PayloadLength = NDEF_GetACDataLength(pAC, CarrierDataRef, AuxDataRefID);
   if (((pRecord->PayloadLength + pAC->ac_record.PayloadLength) > NDEF_RECORD_MAX_SIZE) ||
