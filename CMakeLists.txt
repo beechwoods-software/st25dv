@@ -3,7 +3,7 @@ if(CONFIG_LIBST25DV)
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 
 zephyr_library_named(LIBST25DV)
-zephyr_include_directories(. ST25DV/ST25DV ST25DV/BSP)
+zephyr_include_directories(. ST25DV/ST25DV ST25DV/BSP ST25DV/libNDEF)
 zephyr_library_sources(
     ST25DV/BSP/st25dv_nfctag.c
     ST25DV/libNDEF/lib_NDEF_AAR.c
