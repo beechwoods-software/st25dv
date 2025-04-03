@@ -1,0 +1,6 @@
+config LIBST25DV
+    bool "Enable ST25DV API library"
+    default n
+    help
+        "Enable support for i2c access to STMicrosystems ST25DV NFC chip"
+        
